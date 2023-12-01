@@ -1,0 +1,1 @@
+/Users/justagent/Desktop/programming/Blockchain/solana-wknd-hack/contracts/hello_world/target/sbf-solana-solana/release/hello_world.so: /Users/justagent/Desktop/programming/Blockchain/solana-wknd-hack/contracts/hello_world/src/lib.rs
