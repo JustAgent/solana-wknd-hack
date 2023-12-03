@@ -33,7 +33,7 @@ function getCommission(transactionAmount, options) {
 }
 ```
 
-### Примеры
+#### Примеры
 Пример использования функции ```getCommission```:
 
 ```javascript
