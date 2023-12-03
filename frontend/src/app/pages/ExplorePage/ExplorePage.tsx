@@ -1,9 +1,13 @@
+import { observer } from 'mobx-react-lite'
+import { useParams } from 'react-router-dom'
+
 import { GameStatusEnum } from '../../../api/Api.ts'
 import { styled } from '../../../styles'
 import { GameCard, type GameCardProps } from '../../components/Game/Card/GameCard.tsx'
-import { Button, PageLayout } from '../../UIkit'
+import { PageLayout } from '../../UIkit'
 import { Title } from '../../UIkit/PageLayout/Title/Title.tsx'
-import { useTestFlip } from '../../web3/test/useTestFlip.ts'
+import { type Params } from '../../utils/router'
+import { useActivatedStore } from '../../utils/store/activate-deactivate/useActivatedStore.ts'
 
 const explorePageData: GameCardProps[] = [
   {
@@ -105,14 +109,16 @@ const StyledExplorePageContainer = styled('div', {
   gap: '32px',
 })
 
-export const ExplorePage = () => {
-  const { coinFlip } = useTestFlip()
+export const ExplorePage = observer(() => {
+  const { gameId } = useParams<Params>()
+
+  const { gameListStore } = useActivatedStore('gameListStore')
 
   return (
     <PageLayout>
       <Title>Games</Title>
       <StyledExplorePageContainer>
-        {explorePageData.map((item, index) => {
+        {gameListStore.data?.map((item, index) => {
           return (
             <GameCard
               {...item}
@@ -122,12 +128,6 @@ export const ExplorePage = () => {
           )
         })}
       </StyledExplorePageContainer>
-      <Button onClick={() => {
-        coinFlip()
-      }}
-      >
-        FLIP
-      </Button>
     </PageLayout>
   )
-}
+})

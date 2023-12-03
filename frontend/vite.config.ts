@@ -16,6 +16,12 @@ export default defineConfig({
     port: 3000,
     open: true,
     host: true,
+    proxy: {
+      '/api': {
+        target: 'http://176.119.157.176:8080',
+        changeOrigin: true
+      },
+    }
   },
   define: {
     'process.env.ANCHOR_BROWSER': true

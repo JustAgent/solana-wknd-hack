@@ -2,9 +2,9 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { styled } from '../../../../../styles'
-import { useTokenStore } from '../../../../hooks/useTokenStore'
 import { textVariant } from '../../../../UIkit'
 import { type Params } from '../../../../utils/router'
+import { useActivatedStore } from '../../../../utils/store/activate-deactivate/useActivatedStore.ts'
 import { GridBlock, PropertyTitle } from '../../helper/styles/style.ts'
 
 const DescriptionSectionStyle = styled(GridBlock, {
@@ -31,15 +31,15 @@ const Pre = styled('pre', {
 })
 
 const DescriptionSection = () => {
-  const { collectionAddress, tokenId } = useParams<Params>()
-  const { data: token } = useTokenStore(collectionAddress, tokenId)
+  const { gameId } = useParams<Params>()
+  const { gameStore } = useActivatedStore('gameStore')
 
   return (
     <>
-      {token?.description && (
+      {gameStore.data?.description && (
         <DescriptionSectionStyle style={{ gridArea: 'Description' }}>
           <PropertyTitle>Description</PropertyTitle>
-          <Pre>{token?.description}</Pre>
+          <Pre>{gameStore.data?.description}</Pre>
         </DescriptionSectionStyle>
       )}
     </>

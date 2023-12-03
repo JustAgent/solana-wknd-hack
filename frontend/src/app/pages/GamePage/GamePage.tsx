@@ -1,6 +1,6 @@
 import { Image } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { styled } from '../../../styles'
 import { PageLayout } from '../../UIkit'
@@ -9,7 +9,38 @@ import BaseInfoSection from './section/BaseInfo/BaseInfoSection.tsx'
 import DescriptionSection from './section/Description/DescriptionSection.tsx'
 import HomeLandSection from './section/HomeLand/HomeLandSection.tsx'
 
-const NFTPreviewContainer = styled('div', {
+const CenterContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  gap: '$3',
+  flexDirection: 'column',
+  position: 'relative',
+})
+
+const ImageStyle = styled(Image, {
+  width: 'max-content',
+  maxWidth: '1100px',
+  height: 'max-content',
+  maxHeight: '500px',
+  borderRadius: '20px',
+  marginTop: '-50px',
+  '@lg': {
+    maxWidth: '812px',
+  },
+  '@md': {
+    maxWidth: '540px',
+  },
+  '@sm': {
+    maxWidth: 358,
+    maxHeight: 358,
+    marginBottom: '73px',
+    marginTop: 0,
+  },
+})
+
+const GamePreviewContainer = styled('div', {
   width: '100%',
   height: 686,
   background: '$gradients$background',
@@ -21,21 +52,6 @@ const NFTPreviewContainer = styled('div', {
     marginTop: '83px',
     height: 455,
   },
-})
-
-const NFTPreviewBlur = styled('div', {
-  backgroundSize: '100% 100%',
-  backgroundPosition: 'center',
-  position: 'absolute',
-  inset: '-200px',
-  filter: 'blur(150px)',
-})
-
-const NFTPreviewContent = styled('div', {
-  width: '100%',
-  height: '100%',
-  position: 'relative',
-  zIndex: 1,
 })
 
 const MainInfo = styled(PageLayout, {
@@ -73,12 +89,14 @@ const GamePage: React.FC = observer(() => {
 
   return (
     <>
-      <NFTPreviewContainer >
-        <Image
-          src={gameStore.data?.image_url}
-          borderRadius='lg'
-        />
-      </NFTPreviewContainer>
+      <GamePreviewContainer>
+        <CenterContainer>
+          <ImageStyle
+            src={gameStore.data?.image_url}
+            borderRadius='lg'
+          />
+        </CenterContainer>
+      </GamePreviewContainer>
       <MainInfo>
         <GridLayout>
           <BaseInfoSection />

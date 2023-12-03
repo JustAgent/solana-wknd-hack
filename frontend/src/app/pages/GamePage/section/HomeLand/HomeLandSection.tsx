@@ -2,12 +2,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
+import { GameStatusEnum } from '../../../../../api/Api.ts'
 import { styled } from '../../../../../styles'
 import { Badge, NavLink } from '../../../../UIkit'
-import { getHttpLinkFromIpfsString } from '../../../../utils/nfts/getHttpLinkFromIpfsString'
-import { getProfileImageUrl } from '../../../../utils/nfts/getProfileImageUrl'
-import { reduceAddress } from '../../../../utils/nfts/reduceAddress'
 import { type Params } from '../../../../utils/router'
+import { useActivatedStore } from '../../../../utils/store/activate-deactivate/useActivatedStore.ts'
 import { GridBlock } from '../../helper/styles/style.ts'
 
 const BadgesContainer = styled('div', {
@@ -22,40 +21,55 @@ const BadgesContainer = styled('div', {
 const HomeLandSection = observer(() => {
   const { gameId } = useParams<Params>()
 
-  const { ga }
+  const { gameStore } = useActivatedStore('gameStore')
 
   return (
     <GridBlock style={{ gridArea: 'HomeLand' }}>
       <BadgesContainer>
         <NavLink
           lgFullWidth
-          to={creatorId ? `/profile/${creatorId}` : location.pathname}
+          to={gameStore.data?.creator?.id ? `/bilder/${gameStore.data?.creator?.id}` : location.pathname}
         >
           <Badge
             image={{
               borderRadius: 'circle',
-              url: creatorImg,
+              url: gameStore.data?.creator?.photo_url ?? '',
             }}
             content={{
               title: 'Creator',
-              value: creatorName,
+              value: gameStore.data?.creator?.name ?? '',
             }}
             wrapperProps={{
               nftPage: true,
             }}
           />
         </NavLink>
-        {(validatorId !== undefined) && (
+        {gameStore.data?.status.status === GameStatusEnum.ACCEPTED && (
+          <Badge
+            image={{
+              borderRadius: 'circle',
+              url: 'https://smartboost.ru/wp-content/uploads/2020/02/tick-azzurro-2048x2048.png',
+            }}
+            content={{
+              title: 'Verify',
+              value: 'Success!',
+            }}
+            wrapperProps={{
+              nftPage: true,
+            }}
+          />
+        )}
+        {(gameStore?.data?.validator !== undefined) && (
           <NavLink
             lgFullWidth
             to={
-              `/validator/${validatorId}`
+              `/validator/${gameStore?.data?.validator?.id}`
             }
           >
             <Badge
-              content={{ title: 'Validator', value: validatorName }}
+              content={{ title: 'Validator', value: gameStore?.data?.validator?.name ?? '' }}
               image={{
-                url: valdidatorImg,
+                url: gameStore?.data?.validator?.photo_url ?? '',
                 borderRadius: 'roundedSquare',
               }}
               wrapperProps={{
@@ -64,24 +78,6 @@ const HomeLandSection = observer(() => {
             />
           </NavLink>
         )}
-        <NavLink
-          lgFullWidth
-          to={ownerName ? `/profile/${ownerUrl}` : location.pathname}
-        >
-          <Badge
-            image={{
-              borderRadius: 'circle',
-              url: ownerHasImg ? getHttpLinkFromIpfsString(ownerImg ?? '') : getProfileImageUrl(token?.owner ?? ''),
-            }}
-            content={{
-              title: 'Owner',
-              value: reduceAddress(ownerName ?? ''),
-            }}
-            wrapperProps={{
-              nftPage: true,
-            }}
-          />
-        </NavLink>
       </BadgesContainer>
     </GridBlock>
   )

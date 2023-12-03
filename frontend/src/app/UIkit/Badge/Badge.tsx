@@ -35,13 +35,13 @@ const Wrapper = styled('div', {
 })
 
 const Title = styled('p', {
-  color: '$gray500',
+  color: '#512da8',
   ...textVariant('primary3').true,
 })
 
 const Value = styled('p', {
   ...textVariant('primary1').true,
-  color: '$blue500',
+  color: '#512da8',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
@@ -60,7 +60,7 @@ const Content = styled('div', {
 const Image = styled('img', {
   width: 48,
   height: 48,
-  border: '2px solid $blue500',
+  border: '2px solid #512da8',
   objectFit: 'cover',
   variants: {
     roundVariant: {

@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-do
 
 import { AppLayout } from '../components/App'
 import { Params } from '../utils/router'
+import { CreateValidatorPage } from './Create/CreateValidatorPage.tsx'
+import { CreatePage } from './Create/CreatGamePage.tsx'
 import { ExplorePage } from './ExplorePage/ExplorePage.tsx'
 import GamePage from './GamePage/GamePage.tsx'
 import { ValidatorsPage } from './ValidatorsPage/ValidatorsPage.tsx'
@@ -18,6 +20,14 @@ const routes: RouteObject[] = [
   {
     path: `game/:${Params.gameId}`,
     element: <GamePage />,
+  },
+  {
+    path: '/create/game',
+    element: <CreatePage />,
+  },
+  {
+    path: '/create/validator',
+    element: <CreateValidatorPage />,
   },
   {
     path: '*',

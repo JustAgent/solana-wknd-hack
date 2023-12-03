@@ -1,21 +1,11 @@
 import { Avatar, Box, Card, CardBody, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
-import { type FC } from 'react'
+import { observer } from 'mobx-react-lite'
+import { type FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { type GameStatusEnum } from '../../../../api/Api.ts'
+import { type Game } from '../../../../api/Api.ts'
 import { styled } from '../../../../styles'
 import { GameCardStatus } from './Status/GameCardStatus.tsx'
-
-export interface GameCardProps {
-  id?: string
-  gamePhoto?: string
-  name?: string
-  statusGame: GameStatusEnum
-  creator: {
-    avatarUrl?: string
-    name: string
-  }
-}
 
 const StyledCard = styled(Card, {
   width: '100%',
@@ -25,32 +15,35 @@ const StyledCard = styled(Card, {
   },
 })
 
-export const GameCard: FC<GameCardProps> = ({
+export const GameCard: FC<Game> = observer(({
   id,
-  gamePhoto,
   name,
-  creator,
-  statusGame,
+  creator_png,
+  creator_name,
+  image_url,
+  status,
 }) => {
-  const { avatarUrl, name: creatorName } = creator
-
   const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log(image_url)
+  }, [image_url])
 
   return (
     <StyledCard
       onClick={() => {
-        navigate(`/game${id}`)
+        navigate(`/game/${id}`)
       }}
     >
       <CardBody>
         <Image
-          src={gamePhoto}
+          src={image_url}
           borderRadius='lg'
         />
         <Stack mt='6' spacing='3'>
           <Flex alignItems={'center'} justifyContent={'space-between'}>
             <Heading alignItems={'flex-end'} size='lg'>{name}</Heading>
-            <GameCardStatus status={statusGame} />
+            <GameCardStatus status={status} />
           </Flex>
           <Flex
             onClick={() => {
@@ -58,10 +51,10 @@ export const GameCard: FC<GameCardProps> = ({
             }}
             alignItems={'center'}
           >
-            <Avatar src={avatarUrl} />
+            <Avatar src={creator_png} />
             <Box ml='3'>
               <Text fontWeight='bold' style={{ display: 'flex', alignItems: 'center' }}>
-                {creatorName}
+                {creator_name}
               </Text>
             </Box>
           </Flex>
@@ -69,4 +62,4 @@ export const GameCard: FC<GameCardProps> = ({
       </CardBody>
     </StyledCard>
   )
-}
+})

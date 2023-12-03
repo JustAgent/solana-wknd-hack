@@ -4,7 +4,7 @@ import { type GameStatusEnum } from '../../../../../api/Api.ts'
 import { styled } from '../../../../../styles'
 
 interface GameCardStatusProps {
-  status: GameStatusEnum
+  status?: GameStatusEnum
 }
 const StyledCardStatus = styled('span', {
   // Общие стили для всех статусов
@@ -39,7 +39,7 @@ const StyledCardStatus = styled('span', {
         backgroundColor: 'rgba(255, 239, 0, 0.3)', // Светло-жёлтый
         color: '#000000',
       },
-      accepted: {
+      approved: {
         backgroundColor: 'rgba(50, 205, 50, 0.3)', // Светло-зелёный
         color: '#FFFFFF',
       },

@@ -14,6 +14,9 @@ export interface Game {
   'image_url'?: string
   'status': GameStatus
   'creator': ProfileBuilder
+  'validator'?: ProfileValidator
+  githubLink?: string
+  gameLink?: string
 }
 
 export interface GameStatus {
@@ -311,7 +314,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
   games = {
     gamesList: (params: RequestParams = {}) =>
       this.request<Game[], ErrorResponse>({
-        path: '/games',
+        path: '/get-games',
         method: 'GET',
         format: 'json',
         ...params,
@@ -320,6 +323,19 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
       this.request<Game[], ErrorResponse>({
         path: '/games/game',
         method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+    gameCreate: (
+      game: Game,
+      params: RequestParams = {},
+    ) =>
+      this.request<SuccessResponse, ErrorResponse>({
+        path: '/add-game',
+        method: 'POST',
+        body: game,
+        secure: true,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
