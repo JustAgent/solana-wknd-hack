@@ -66,7 +66,7 @@ export const checkGame = (data: CheckGameReq): Promise<CheckGameResp> => {
 
 export const validateGame = (data: ValidateGameReq): Promise<void> => {
   return axios.post('/api/game/validateGame', {
-    data,
+    ...data,
   })
 }
 
