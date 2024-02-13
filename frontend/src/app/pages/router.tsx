@@ -6,6 +6,7 @@ import { CreateValidatorPage } from './Create/CreateValidatorPage.tsx'
 import { CreatePage } from './Create/CreatGamePage.tsx'
 import { ExplorePage } from './ExplorePage/ExplorePage.tsx'
 import GamePage from './GamePage/GamePage.tsx'
+import { RejectGamePage } from './RejectGamePage/RejectGamePage.tsx'
 import { ValidateGamePage } from './ValidateGamePage/ValidateGamePage.tsx'
 import { ValidatorsPage } from './ValidatorsPage/ValidatorsPage.tsx'
 
@@ -36,7 +37,7 @@ const routes: RouteObject[] = [
   },
   {
     path: `/reject/game/:${Params.gameId}`,
-    element: <ValidateGamePage />,
+    element: <RejectGamePage />,
   },
   {
     path: '*',
