@@ -5,6 +5,11 @@ export const FormControl = styled('div', {
   marginBottom: '$4',
   maxWidth: '$breakpoints$sm',
   variants: {
+    noMax: {
+      true: {
+        maxWidth: '100%',
+      },
+    },
     size: {
       lg: {
         maxWidth: '100%',

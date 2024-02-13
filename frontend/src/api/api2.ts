@@ -83,7 +83,7 @@ export const rejectGame = (data: RejectGameReq): Promise<void> => {
 }
 
 export const createUser = (data: UserReq): Promise<UserResp> => {
-  return axios.post('/api/game/createUser', {
+  return axios.post('/api/user/createUser', {
     ...data,
   })
 }
