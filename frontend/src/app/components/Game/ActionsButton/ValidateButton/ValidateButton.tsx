@@ -20,7 +20,7 @@ export const ValidateButton: FC<ValidateButtonProps> = ({ game }) => {
 
   return (
     <Button primary onClick={handleClick}>
-      Check game
+      Validate Game
     </Button>
   )
 }

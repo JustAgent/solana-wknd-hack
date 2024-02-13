@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { checkGame, type CheckGameReq } from '../../../api/api2.ts'
+import { type CheckGameReq, validateGame } from '../../../api/api2.ts'
 import { Button, FormControl, Input, PageLayout } from '../../UIkit'
 import { Label } from '../Create/helper/style/style.ts'
 
@@ -18,7 +18,7 @@ export const ValidateGamePage = () => {
   } = useForm<CheckGameReq>()
 
   const onSubmit = (data: CheckGameReq) => {
-    checkGame({
+    validateGame({
       validator_id: parseInt(data.validator_id),
       game_id: parseInt(params.gameId),
     })
