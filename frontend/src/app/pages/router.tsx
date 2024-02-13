@@ -35,6 +35,10 @@ const routes: RouteObject[] = [
     element: <ValidateGamePage />,
   },
   {
+    path: `/reject/game/:${Params.gameId}`,
+    element: <ValidateGamePage />,
+  },
+  {
     path: '*',
     element: <Navigate replace to={'/'} />,
   },

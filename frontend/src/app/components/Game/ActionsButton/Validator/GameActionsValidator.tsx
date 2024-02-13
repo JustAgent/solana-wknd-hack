@@ -6,6 +6,7 @@ import { Txt } from '../../../../UIkit'
 import { gamePermissions } from '../../../../utils/permissions/permissions.ts'
 import { CheckGame } from '../CheckGame/CheckGame.tsx'
 import { HideAction } from '../HideAction.tsx'
+import { RejectButton } from '../RejectButton/RejectButton.tsx'
 import { ValidateButton } from '../ValidateButton/ValidateButton.tsx'
 
 export interface GameActionsValidatorProps {
@@ -26,6 +27,9 @@ export const GameActionsValidator: FC<GameActionsValidatorProps> = observer(({
           setUrl(url)
         }}
         />
+      </HideAction>
+      <HideAction hide={!url}>
+        <RejectButton />
       </HideAction>
       <HideAction hide={!url}>
         <ValidateButton game={game} />
