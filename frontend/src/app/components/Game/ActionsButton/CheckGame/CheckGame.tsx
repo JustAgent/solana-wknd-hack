@@ -12,6 +12,7 @@ export const CheckGame = ({ onGet }: { onGet: (url: string) => void }) => {
       game_id: parseInt(params.gameId),
       validator_id: 1,
     })
+    console.log(codelink)
     onGet(codelink)
   }, [params])
 
