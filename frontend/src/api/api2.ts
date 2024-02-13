@@ -60,9 +60,7 @@ export const createGame = (data: CreateGameReq): Promise<CreateGameResponse> => 
 
 export const checkGame = (data: CheckGameReq): Promise<CheckGameResp> => {
   return axios.post('/api/game/checkGame', {
-    params: {
-      ...data,
-    },
+    ...data,
   })
 }
 
