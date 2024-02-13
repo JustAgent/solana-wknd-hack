@@ -58,7 +58,7 @@ export const RejectGamePage = () => {
           primary
           styles={{ width: '50%', height: '50%', margin: '0 auto' }}
         >
-          Approve game
+          Reject game
         </Button>
       </form>
     </PageLayout>

@@ -72,18 +72,18 @@ export const validateGame = (data: ValidateGameReq): Promise<void> => {
 
 export const commentGame = (data: CommentGameReq): Promise<void> => {
   return axios.post('/api/game/commentGame', {
-    data,
+    ...data,
   })
 }
 
 export const rejectGame = (data: RejectGameReq): Promise<void> => {
   return axios.put('/api/game/rejectGame', {
-    data,
+    ...data,
   })
 }
 
 export const createUser = (data: UserReq): Promise<UserResp> => {
   return axios.post('/api/game/createUser', {
-    data,
+    ...data,
   })
 }
