@@ -8,7 +8,7 @@ export interface CreateGameReq {
   code_link: string
   image_link: string
   version: string
-  smartcontract_info: number
+  smartcontact_info: number
 }
 
 export interface CreateGameResponse {
@@ -54,13 +54,15 @@ export interface UserResp {
 
 export const createGame = (data: CreateGameReq): Promise<CreateGameResponse> => {
   return axios.post('/api/game/createGame', {
-    data,
+    ...data,
   })
 }
 
 export const checkGame = (data: CheckGameReq): Promise<CheckGameResp> => {
   return axios.get('/api/game/checkGame', {
-    data,
+    params: {
+      ...data,
+    },
   })
 }
 

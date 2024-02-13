@@ -32,7 +32,7 @@ export const CreatePage: React.FC = observer(() => {
     const { id } = await createGame({
       ...data,
       creator_id: parseInt(data.creator_id),
-      smartcontract_info: parseInt(data.smartcontract_info),
+      smartcontact_info: parseInt(data.smartcontact_info),
       genre_id: parseInt(data.genre_id),
     })
     navigate(`/game/${id}`)
@@ -164,7 +164,7 @@ export const CreatePage: React.FC = observer(() => {
             withoutDefaultBorder
             placeholder='Link to your code'
             controlledInputProps={{
-              name: 'smartcontract_info',
+              name: 'smartcontact_info',
               control,
               setValue,
               rules: {
