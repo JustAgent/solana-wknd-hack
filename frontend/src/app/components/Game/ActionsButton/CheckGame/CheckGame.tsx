@@ -8,12 +8,12 @@ export const CheckGame = ({ onGet }: { onGet: (url: string) => void }) => {
   const params = useParams()
 
   const handleClick = useCallback(async () => {
-    const { codelink } = await checkGame({
+    const data = await checkGame({
       game_id: parseInt(params.gameId),
       validator_id: 1,
     })
-    console.log(codelink)
-    onGet(codelink)
+    console.log(data)
+    onGet(data)
   }, [params])
 
   return (
