@@ -29,7 +29,12 @@ export const CreatePage: React.FC = observer(() => {
   } = useForm<CreateGameReq>()
 
   const onSubmit: SubmitHandler<CreateGameReq> = async (data) => {
-    const { id } = await createGame(data)
+    const { id } = await createGame({
+      ...data,
+      creator_id: parseInt(data.creator_id),
+      smartcontract_info: parseInt(data.smartcontract_info),
+      genre_id: parseInt(data.genre_id),
+    })
     navigate(`/game/${id}`)
   }
 
