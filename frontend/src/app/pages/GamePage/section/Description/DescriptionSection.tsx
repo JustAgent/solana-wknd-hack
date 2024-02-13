@@ -1,9 +1,7 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 
 import { styled } from '../../../../../styles'
 import { textVariant } from '../../../../UIkit'
-import { type Params } from '../../../../utils/router'
 import { useActivatedStore } from '../../../../utils/store/activate-deactivate/useActivatedStore.ts'
 import { GridBlock, PropertyTitle } from '../../helper/styles/style.ts'
 
@@ -31,7 +29,6 @@ const Pre = styled('pre', {
 })
 
 const DescriptionSection = () => {
-  const { gameId } = useParams<Params>()
   const { gameStore } = useActivatedStore('gameStore')
 
   return (

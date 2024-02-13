@@ -10,10 +10,6 @@ export const paths: NavBarItemData[] = [
     label: 'Validators',
   },
   {
-    to: '/dao',
-    label: 'DAO',
-  },
-  {
     to: '/create/game',
     label: 'Build your game',
   },

@@ -38,8 +38,12 @@ export class GamesListStore implements ActivateDeactivate, StoreRequester {
     this.isActivated = false
   }
 
-  private async request(): void {
-    axios.get('/api/get-games').then((data) => {
+  private async request() {
+    axios.get('/api/get-games', {
+      data: {
+        gameId: 1,
+      },
+    }).then((data) => {
       this.data = data.data
     })
   }

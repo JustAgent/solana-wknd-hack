@@ -6,6 +6,7 @@ import { styled } from '../../../styles'
 import { PageLayout } from '../../UIkit'
 import { useActivatedStore } from '../../utils/store/activate-deactivate/useActivatedStore.ts'
 import BaseInfoSection from './section/BaseInfo/BaseInfoSection.tsx'
+import ControlSection from './section/Contol/ControlSection.tsx'
 import DescriptionSection from './section/Description/DescriptionSection.tsx'
 import HomeLandSection from './section/HomeLand/HomeLandSection.tsx'
 
@@ -55,7 +56,7 @@ const GamePreviewContainer = styled('div', {
 })
 
 const MainInfo = styled(PageLayout, {
-  display: 'flex', // чтобы можно было дочерним заполнить все пространство
+  display: 'grid', // чтобы можно было дочерним заполнить все пространство
   marginTop: '74px',
   marginBottom: '-80px',
   paddingTB: 48,
@@ -102,6 +103,9 @@ const GamePage: React.FC = observer(() => {
           <BaseInfoSection />
           <HomeLandSection />
           <DescriptionSection />
+        </GridLayout>
+        <GridLayout>
+          <ControlSection />
         </GridLayout>
       </MainInfo>
     </>
