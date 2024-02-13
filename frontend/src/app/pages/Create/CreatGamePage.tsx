@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
-import { api } from '../../../api/Api.ts'
+import { createGame, type CreateGameReq } from '../../../api/api2.ts'
 import {
   Button,
   FormControl,
@@ -17,36 +18,19 @@ import {
   TitleGroup,
 } from './helper/style/style'
 
-export interface CreateGameForm {
-  name: string
-  imageUrl: string
-  description: string
-  gitHubUrl: string
-  gameLink?: string
-}
-
 export const CreatePage: React.FC = observer(() => {
+  const navigate = useNavigate()
   const {
     handleSubmit,
     control,
     formState: { isValid },
 
     setValue,
-  } = useForm<CreateGameForm>()
+  } = useForm<CreateGameReq>()
 
-  const onSubmit: SubmitHandler<CreateGameForm> = (data) => {
-    api.games.gameCreate({
-      id: '1',
-      name: 'Solana Game',
-      description: 'Good project',
-      genre: '',
-      image_url: '',
-      status: 'Denied',
-      creator: 'NoName',
-      validator: '1',
-      github_link: '',
-      game_link: '',
-    })
+  const onSubmit: SubmitHandler<CreateGameReq> = async (data) => {
+    const { id } = await createGame(data)
+    navigate(`/game/${id}`)
   }
 
   return (
@@ -62,11 +46,11 @@ export const CreatePage: React.FC = observer(() => {
 
         <FormControl>
           <Label css={{ marginBottom: '$1' }}>Url to preview img</Label>
-          <Input<CreateGameForm>
+          <Input<CreateGameReq>
             withoutDefaultBorder
             placeholder='Url'
             controlledInputProps={{
-              name: 'imageUrl',
+              name: 'image_link',
               control,
               setValue,
               rules: {
@@ -78,7 +62,7 @@ export const CreatePage: React.FC = observer(() => {
 
         <FormControl>
           <Label>Name</Label>
-          <Input<CreateGameForm>
+          <Input<CreateGameReq>
             withoutDefaultBorder
             placeholder='Game name'
             controlledInputProps={{
@@ -94,7 +78,7 @@ export const CreatePage: React.FC = observer(() => {
 
         <FormControl>
           <Label>Description</Label>
-          <Input<CreateGameForm>
+          <Input<CreateGameReq>
             withoutDefaultBorder
             placeholder='Description'
             controlledInputProps={{
@@ -109,12 +93,12 @@ export const CreatePage: React.FC = observer(() => {
         </FormControl>
 
         <FormControl>
-          <Label>Game Link</Label>
-          <Input<CreateGameForm>
+          <Label>Creator id</Label>
+          <Input<CreateGameReq>
             withoutDefaultBorder
             placeholder='Game Link'
             controlledInputProps={{
-              name: 'gameLink',
+              name: 'creator_id',
               control,
               setValue,
             }}
@@ -122,12 +106,60 @@ export const CreatePage: React.FC = observer(() => {
         </FormControl>
 
         <FormControl>
-          <Label>Github url</Label>
-          <Input<CreateGameForm>
+          <Label>Genre id</Label>
+          <Input<CreateGameReq>
             withoutDefaultBorder
             placeholder='Link to your code'
             controlledInputProps={{
-              name: 'gitHubUrl',
+              name: 'genre_id',
+              control,
+              setValue,
+              rules: {
+                required: true,
+              },
+            }}
+          />
+        </FormControl>
+
+        <FormControl>
+          <Label>Code link</Label>
+          <Input<CreateGameReq>
+            withoutDefaultBorder
+            placeholder='Link to your code'
+            controlledInputProps={{
+              name: 'code_link',
+              control,
+              setValue,
+              rules: {
+                required: true,
+              },
+            }}
+          />
+        </FormControl>
+
+        <FormControl>
+          <Label>Version</Label>
+          <Input<CreateGameReq>
+            withoutDefaultBorder
+            placeholder='Link to your code'
+            controlledInputProps={{
+              name: 'version',
+              control,
+              setValue,
+              rules: {
+                required: true,
+              },
+            }}
+          />
+        </FormControl>
+
+        <FormControl>
+          <Label>Smart contract info</Label>
+          <Input<CreateGameReq>
+            withoutDefaultBorder
+            placeholder='Link to your code'
+            controlledInputProps={{
+              name: 'smartcontract_info',
               control,
               setValue,
               rules: {
