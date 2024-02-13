@@ -21,16 +21,16 @@ export const GameActionsValidator: FC<GameActionsValidatorProps> = observer(({
 
   return (
     <>
-      <HideAction hide={!url}>
+      <HideAction hide={!!url}>
         <CheckGame onGet={(url) => {
           setUrl(url)
         }}
         />
       </HideAction>
-      <HideAction hide={!!url}>
+      <HideAction hide={!url}>
         <ValidateButton game={game} />
       </HideAction>
-      <HideAction hide={!!url}>
+      <HideAction hide={!url}>
         <Txt>{url}</Txt>
       </HideAction>
     </>
