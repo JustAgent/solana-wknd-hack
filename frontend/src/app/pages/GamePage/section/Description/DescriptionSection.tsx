@@ -106,7 +106,7 @@ const DescriptionSection = () => {
       }}
       >
         {comments.map((item, index) =>
-          <Txt key={index}>{`${item.user_id}: ${item.text}`}</Txt>)}
+          <div style={{ display: '' }}><Txt key={index}>{`${item.user_id}: ${item.text}`}</Txt></div>)}
       </div>
     </>
   )

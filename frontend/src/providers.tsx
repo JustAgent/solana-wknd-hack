@@ -10,16 +10,16 @@ import { StitchesProvider } from './styles'
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
     <WalletConnectProvider>
-      <StitchesProvider>
-        <NextUIProvider disableBaseline>
+      <NextUIProvider disableBaseline>
+        <StitchesProvider>
           <ChakraProvider>
             <StoreProvider>
               {children}
               <DialogManager />
             </StoreProvider>
           </ChakraProvider>
-        </NextUIProvider>
-      </StitchesProvider>
+        </StitchesProvider>
+      </NextUIProvider>
     </WalletConnectProvider>
   )
 }

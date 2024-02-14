@@ -1,104 +1,60 @@
 import { observer } from 'mobx-react-lite'
-import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 
-import { GameStatusEnum } from '../../../api/Api.ts'
 import { styled } from '../../../styles'
-import { GameCard, type GameCardProps } from '../../components/Game/Card/GameCard.tsx'
-import { PageLayout } from '../../UIkit'
+import { GameCard } from '../../components/Game/Card/GameCard.tsx'
+import { Button, PageLayout, Popover, PopoverContent, PopoverTrigger, Txt } from '../../UIkit'
 import { Title } from '../../UIkit/PageLayout/Title/Title.tsx'
-import { type Params } from '../../utils/router'
 import { useActivatedStore } from '../../utils/store/activate-deactivate/useActivatedStore.ts'
 
-const explorePageData: GameCardProps[] = [
+const sortValues: Array<{
+  value?: string
+  sortBy?: string
+  label: string
+}> = [
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.ACCEPTED,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Vatset Maria',
-    },
+    value: undefined,
+    sortBy: undefined,
+    label: 'Relevance',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.CANCEL,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Levin Aleksey',
-    },
+    value: 'date_start',
+    sortBy: 'asc',
+    label: 'Start date: earliest',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.CREATED,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Baykov Ivan',
-    },
+    value: 'date_start',
+    sortBy: 'desc',
+    label: 'Start date: latest',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.DENIED,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
+    value: 'date_end',
+    sortBy: 'asc',
+    label: 'End date: earliest',
+  }, {
+    value: 'date_end',
+    sortBy: 'desc',
+    label: 'End date: latest',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.REQUEST,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
+    value: 'personal_reward',
+    sortBy: 'asc',
+    label: 'Campaign reward: more',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.REFACTOR,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
+    value: 'personal_reward',
+    sortBy: 'desc',
+    label: 'Campaign reward: less',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.ACCEPTED,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
+    value: 'campaign_reward',
+    sortBy: 'asc',
+    label: 'Personal reward: more',
   },
   {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.VOTING,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
-  },
-  {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.VALIDATING,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
-  },
-  {
-    gamePhoto: 'https://bit.ly/sage-adebayo',
-    name: 'Bananchiki',
-    statusGame: GameStatusEnum.VALIDATION,
-    creator: {
-      avatarUrl: 'https://bit.ly/sage-adebayo',
-      name: 'Trofimov Andrey',
-    },
+    value: 'campaign_reward',
+    sortBy: 'desc',
+    label: 'Personal reward: less',
   },
 ]
 
@@ -109,14 +65,70 @@ const StyledExplorePageContainer = styled('div', {
   gap: '32px',
 })
 
-export const ExplorePage = observer(() => {
-  const { gameId } = useParams<Params>()
+const Spacer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  flexWrap: 'nowrap',
+  gap: '$3',
+})
 
+export const ExplorePage = observer(() => {
   const { gameListStore } = useActivatedStore('gameListStore')
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
 
   return (
     <PageLayout>
       <Title>Games</Title>
+      <div style={{ display: 'flex', gap: '32px', paddingTop: '32px', width: '432px' }}>
+        <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
+          <PopoverTrigger>
+            <Button
+              fullWidth
+              secondary
+              iconCover
+              blueBorder
+            >
+              Filters
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent css={{
+            width: '200px',
+          }}
+          >
+            <Spacer>
+              <Txt>NFT</Txt>
+              <Txt>GameFi</Txt>
+              <Txt>DeFi</Txt>
+              <Txt>SocialFi</Txt>
+              <Txt>P2E</Txt>
+            </Spacer>
+          </PopoverContent>
+        </Popover>
+        <Popover isOpen={isOpen2} onOpenChange={setIsOpen2}>
+          <PopoverTrigger>
+            <Button
+              fullWidth
+              secondary
+              iconCover
+              blueBorder
+            >
+              Sort
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent css={{
+            width: '200px',
+          }}
+          >
+            <Spacer>
+              <Txt>по дате</Txt>
+              <Txt>по убыванию</Txt>
+              <Txt>по возрастанию</Txt>
+              <Txt>по рейтингу</Txt>
+            </Spacer>
+          </PopoverContent>
+        </Popover>
+      </div>
       <StyledExplorePageContainer>
         {gameListStore.data?.map((item, index) => {
           return (
